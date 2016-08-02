@@ -1,0 +1,10 @@
+(module CherryStabilizer (layer F.Cu) (tedit 5782CEED)
+  (fp_text reference "" (at 0 0.5) (layer F.SilkS) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text value S (at 0 0) (layer F.Fab) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (pad "" np_thru_hole circle (at 0 -7) (size 3.05 3.05) (drill 3.05) (layers *.Cu *.Mask F.SilkS))
+  (pad "" np_thru_hole circle (at 0 8.3) (size 4 4) (drill 4) (layers *.Cu *.Mask F.SilkS))
+)

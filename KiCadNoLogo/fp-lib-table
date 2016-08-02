@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name 10KeyParts)(type KiCad)(uri "$(KIPRJMOD)\\10KeyParts")(options "")(descr ""))
+)
