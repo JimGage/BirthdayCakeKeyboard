@@ -348,34 +348,26 @@ Wire Wire Line
 	3250 6300 3250 6250
 Text Label 2400 6300 2    60   ~ 0
 PROGRAM
-Text Label 4050 3550 0    60   ~ 0
+Text Label 5200 3750 0    60   ~ 0
 PROGRAM
-Text Label 4100 1550 0    60   ~ 0
+Text Label 4900 1550 0    60   ~ 0
 SCK
-Text Label 4100 1650 0    60   ~ 0
+Text Label 4900 1650 0    60   ~ 0
 MOSI
-Text Label 4100 1750 0    60   ~ 0
+Text Label 4900 1750 0    60   ~ 0
 MISO
-Wire Wire Line
-	3850 1550 4100 1550
-Wire Wire Line
-	3850 1650 4100 1650
-Wire Wire Line
-	3850 1750 4100 1750
 Text Label 1550 1200 1    60   ~ 0
 RST
 Wire Wire Line
 	1550 1200 1550 1450
 Connection ~ 1550 1450
-Wire Wire Line
-	3850 3550 4050 3550
-Text Label 4100 1450 0    60   ~ 0
+Text Label 4900 1450 0    60   ~ 0
 COL0
-Text Label 4100 1850 0    60   ~ 0
+Text Label 4950 1950 0    60   ~ 0
 COL1
-Text Label 4100 1950 0    60   ~ 0
+Text Label 4950 2050 0    60   ~ 0
 COL2
-Text Label 4100 2050 0    60   ~ 0
+Text Label 4950 2150 0    60   ~ 0
 COL3
 $Comp
 L CONN_02X03 P2
@@ -621,82 +613,40 @@ F 3 "" H 13150 9150 60  0000 C CNN
 	1    13150 9150
 	1    0    0    -1  
 $EndComp
-Text Label 4100 2150 0    60   ~ 0
+Text Label 4100 1850 0    60   ~ 0
 ROW0
-Text Label 4100 2350 0    60   ~ 0
+Text Label 4100 1950 0    60   ~ 0
 ROW1
-Text Label 4100 2450 0    60   ~ 0
+Text Label 4100 2050 0    60   ~ 0
 ROW2
-Text Label 4100 2650 0    60   ~ 0
+Text Label 4100 2150 0    60   ~ 0
 ROW3
-Text Label 4100 2750 0    60   ~ 0
+Text Label 4100 2350 0    60   ~ 0
 ROW4
-Text Label 4100 2850 0    60   ~ 0
+Text Label 5200 2450 0    60   ~ 0
 LEDR0
-Text Label 4100 2950 0    60   ~ 0
+Text Label 5200 2550 0    60   ~ 0
 LEDG0
-Text Label 4100 3050 0    60   ~ 0
+Text Label 5200 2650 0    60   ~ 0
 LEDB0
-Text Label 4100 3150 0    60   ~ 0
+Text Label 5200 2750 0    60   ~ 0
 LEDR1
-Text Label 4100 3250 0    60   ~ 0
+Text Label 5200 3150 0    60   ~ 0
 LEDG1
-Text Label 4100 3350 0    60   ~ 0
+Text Label 5200 3250 0    60   ~ 0
 LEDB1
-Text Label 4100 3650 0    60   ~ 0
+Text Label 5200 4150 0    60   ~ 0
 LEDR2
-Text Label 4100 3850 0    60   ~ 0
+Text Label 5200 3350 0    60   ~ 0
 LEDG2
-Text Label 4100 3950 0    60   ~ 0
+Text Label 5200 3450 0    60   ~ 0
 LEDB2
-Text Label 4100 4050 0    60   ~ 0
+Text Label 5200 4250 0    60   ~ 0
 LEDR3
-Text Label 4100 4150 0    60   ~ 0
+Text Label 5200 4350 0    60   ~ 0
 LEDG3
-Text Label 4100 4250 0    60   ~ 0
+Text Label 5200 4450 0    60   ~ 0
 LEDB3
-Wire Wire Line
-	3850 1850 4100 1850
-Wire Wire Line
-	3850 1950 4100 1950
-Wire Wire Line
-	3850 2050 4100 2050
-Wire Wire Line
-	3850 2150 4100 2150
-Wire Wire Line
-	3850 2350 4100 2350
-Wire Wire Line
-	3850 2450 4100 2450
-Wire Wire Line
-	3850 2650 4100 2650
-Wire Wire Line
-	3850 2750 4100 2750
-Wire Wire Line
-	3850 2850 4100 2850
-Wire Wire Line
-	3850 2950 4100 2950
-Wire Wire Line
-	3850 3050 4100 3050
-Wire Wire Line
-	3850 3150 4100 3150
-Wire Wire Line
-	3850 3250 4100 3250
-Wire Wire Line
-	3850 3350 4100 3350
-Wire Wire Line
-	3850 3650 4100 3650
-Wire Wire Line
-	3850 3850 4100 3850
-Wire Wire Line
-	3850 3950 4100 3950
-Wire Wire Line
-	3850 4050 4100 4050
-Wire Wire Line
-	3850 4150 4100 4150
-Wire Wire Line
-	3850 4250 4100 4250
-Wire Wire Line
-	3850 1450 4100 1450
 $Comp
 L MMBT3906 Q3
 U 1 1 578B5488
@@ -1607,4 +1557,197 @@ Wire Wire Line
 	4250 6900 4250 7100
 Wire Wire Line
 	4250 7400 4250 7700
+Wire Wire Line
+	4900 1450 3850 1450
+Wire Wire Line
+	3850 1550 4900 1550
+Wire Wire Line
+	4750 1550 4750 1950
+Wire Wire Line
+	4750 1950 4950 1950
+Connection ~ 4750 1550
+Wire Wire Line
+	3850 1650 4900 1650
+Wire Wire Line
+	3850 1750 4900 1750
+Wire Wire Line
+	4650 1650 4650 2050
+Wire Wire Line
+	4650 2050 4950 2050
+Connection ~ 4650 1650
+Wire Wire Line
+	4550 1750 4550 2150
+Wire Wire Line
+	4550 2150 4950 2150
+Connection ~ 4550 1750
+Wire Wire Line
+	3850 1850 4100 1850
+Wire Wire Line
+	3850 1950 4100 1950
+Wire Wire Line
+	3850 2050 4100 2050
+Wire Wire Line
+	3850 2150 4100 2150
+Wire Wire Line
+	3850 2350 4100 2350
+$Comp
+L R_PACK4 RP1
+U 1 1 57A2C523
+P 4900 2800
+F 0 "RP1" H 4900 3250 50  0000 C CNN
+F 1 "100" H 4900 2750 50  0000 C CNN
+F 2 "Resistors_SMD:R_Array_Convex_4x1206" H 4900 2800 50  0001 C CNN
+F 3 "" H 4900 2800 50  0000 C CNN
+	1    4900 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L R_PACK4 RP2
+U 1 1 57A2C672
+P 4900 3500
+F 0 "RP2" H 4900 3950 50  0000 C CNN
+F 1 "100" H 4900 3450 50  0000 C CNN
+F 2 "Resistors_SMD:R_Array_Convex_4x1206" H 4900 3500 50  0001 C CNN
+F 3 "" H 4900 3500 50  0000 C CNN
+	1    4900 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L R_PACK4 RP3
+U 1 1 57A2C707
+P 4900 4100
+F 0 "RP3" H 4900 4550 50  0000 C CNN
+F 1 "100" H 4900 4050 50  0000 C CNN
+F 2 "Resistors_SMD:R_Array_Convex_4x1206" H 4900 4100 50  0001 C CNN
+F 3 "" H 4900 4100 50  0000 C CNN
+	1    4900 4100
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	3850 2450 4700 2450
+Wire Wire Line
+	3850 2650 3900 2650
+Wire Wire Line
+	3900 2650 3900 2550
+Wire Wire Line
+	3900 2550 4700 2550
+Wire Wire Line
+	3850 2750 4000 2750
+Wire Wire Line
+	4000 2750 4000 2650
+Wire Wire Line
+	4000 2650 4700 2650
+Wire Wire Line
+	3850 2850 4150 2850
+Wire Wire Line
+	4150 2850 4150 2750
+Wire Wire Line
+	4150 2750 4700 2750
+Wire Wire Line
+	3850 2950 4600 2950
+Wire Wire Line
+	4600 2950 4600 3150
+Wire Wire Line
+	4600 3150 4700 3150
+Wire Wire Line
+	3850 3050 4500 3050
+Wire Wire Line
+	4500 3050 4500 3250
+Wire Wire Line
+	4500 3250 4700 3250
+Wire Wire Line
+	3850 3150 4400 3150
+Wire Wire Line
+	4400 3150 4400 3350
+Wire Wire Line
+	4400 3350 4700 3350
+Wire Wire Line
+	3850 3250 4300 3250
+Wire Wire Line
+	4300 3250 4300 3450
+Wire Wire Line
+	4300 3450 4700 3450
+Wire Wire Line
+	3850 3350 4200 3350
+Wire Wire Line
+	4200 3350 4200 3650
+Wire Wire Line
+	4200 3650 4550 3650
+Wire Wire Line
+	4550 3650 4550 4150
+Wire Wire Line
+	3850 3650 4050 3650
+Wire Wire Line
+	4050 3650 4050 3750
+Wire Wire Line
+	4050 3750 4450 3750
+Wire Wire Line
+	4450 3750 4450 4250
+Wire Wire Line
+	3850 3850 4350 3850
+Wire Wire Line
+	4350 3850 4350 4350
+Wire Wire Line
+	3850 3950 4250 3950
+Wire Wire Line
+	4250 3950 4250 4450
+Wire Wire Line
+	3850 3550 4650 3550
+Wire Wire Line
+	4650 3550 4650 3750
+Wire Wire Line
+	4650 3750 5200 3750
+Wire Wire Line
+	5100 3150 5200 3150
+Wire Wire Line
+	5100 3250 5200 3250
+Wire Wire Line
+	5100 3350 5200 3350
+Wire Wire Line
+	5100 3450 5200 3450
+$Comp
+L C_Small C5
+U 1 1 57A303BA
+P 4700 7250
+F 0 "C5" H 4710 7320 50  0000 L CNN
+F 1 "0.1uF" H 4710 7170 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603_HandSoldering" H 4700 7250 50  0001 C CNN
+F 3 "" H 4700 7250 50  0000 C CNN
+	1    4700 7250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4250 7000 4700 7000
+Wire Wire Line
+	4700 7000 4700 7150
+Connection ~ 4250 7000
+Wire Wire Line
+	4700 7350 4700 7550
+Wire Wire Line
+	4700 7550 4250 7550
+Connection ~ 4250 7550
+Wire Wire Line
+	5100 2450 5200 2450
+Wire Wire Line
+	5100 2550 5200 2550
+Wire Wire Line
+	5100 2650 5200 2650
+Wire Wire Line
+	5100 2750 5200 2750
+Wire Wire Line
+	4550 4150 4700 4150
+Wire Wire Line
+	5100 4150 5200 4150
+Wire Wire Line
+	5100 4250 5200 4250
+Wire Wire Line
+	5100 4350 5200 4350
+Wire Wire Line
+	5100 4450 5200 4450
+Wire Wire Line
+	4450 4250 4700 4250
+Wire Wire Line
+	4350 4350 4700 4350
+Wire Wire Line
+	4250 4450 4700 4450
 $EndSCHEMATC
