@@ -1,0 +1,17 @@
+This is my best guess on a parts list
+
+Number  Value     Mouser Part Number
+------- --------- ----------------------
+C1-C2   18pF      581-06035A180FAT2A
+C3      .1uF      80-C0603C104K5R
+C4      100uF     581-TLJA107M10R1400
+D1-D17  LL4148    78-LL4148
+P1      Micro USB 538-47346-0001     
+Q1-Q5   mmbt3906  512-MMBT3906
+R1-R2   22        594-MCT06030C2209FP5
+R3      10K       754-RR0816P-103D
+R4-R8   1K        754-RR0816P-102D
+Sw1     Push      774-222CMVBAR
+SW2     PCM13     611-PCM13SMTR
+U1      A32u4     556-ATMEGA32U4-AU
+Y1      16Mhz     815-ABLS-16-B2
