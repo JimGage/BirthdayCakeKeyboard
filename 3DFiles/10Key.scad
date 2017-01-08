@@ -20,7 +20,8 @@ useCostarStabs = false;
 useCherryStabs = true;
 
 // Set to true to add ribs to the plate
-addSupports = true;
+addPlateSupports = false;
+addBoxSupports = true;
 
 
 // some constants
@@ -32,14 +33,17 @@ skPlateThickness = 1.5;
 skScrewDiameter = 3;
 skScrewHeadDiameter = 6;
 
-skPlateAngle = 15;
+// how tall the box is
+skBoxDepth = 10;
 
+skPlateOffset = 17;
 
 // comment or uncomment to create a part
 //Box();
-//Plate();
+Plate();
+//rotate([180,0,0])TopBezel();
 //CutOpen();
-Everything();
+//Everything();
 
 
 //----------------------------------------------------------------------------
@@ -51,7 +55,13 @@ module CutOpen()
     {
         Everything();
         translate([0,15,0])cube([100,50,100],true);
-        translate([0,0,-22])cube([100,150,50],true);
+        
+        // inspect the screw holes from below
+        //translate([0,0,-22])cube([100,150,50],true);
+        
+        // inspect the screw holes from the side
+        translate([85,0,0])cube([100,150,100],true);
+
     }
 }
 
@@ -62,7 +72,8 @@ module Everything()
     union()
     {
         color([1,0.3,0.3]) Box();
-        color([0.4,0.4,0.4])translate([0,0,10.5])rotate([2,0,0])Plate();
+        color([0.4,0.4,0.4])translate([0,0,skBoxDepth+2.1])rotate([2,0,0])Plate();
+        color([1,0.4,0.4]) rotate([2,0,0])translate([0,.3,skBoxDepth+3]) TopBezel();
     }
 }
 
@@ -150,21 +161,74 @@ module BlankPlate( thickness = skPlateThickness, tolerance = 0 )
 
 //----------------------------------------------------------------------------
 
-module BlankBox( thickness = skPlateThickness, skTolerance = 0 )
+module BlankBox( thickness = skPlateThickness, tolerance = 0, skewHeight = 4, sideRotation = 0 )
 {
-    hull()
+    difference()
     {
-        $fn = 100;
-        translate([-34, 49, 0])  cylinder(thickness+4, r = 6, true );
-        translate([-34, -49, 0])  cylinder(thickness, r = 6, true );
-        translate([34, -49, 0])  cylinder(thickness, r = 6,true );
-        translate([34, 49, 0])  cylinder(thickness+4, r = 6, true );
+        hull()
+        {
+            $fn = 100;
+            translate([-34, 49, 0])  rotate([sideRotation,0,0])cylinder(thickness+skewHeight, r = 6, true );
+            translate([-34, -49, 0])  rotate([sideRotation,0,0])cylinder(thickness, r = 6, true );
+            translate([34, -49, 0])  rotate([sideRotation,0,0])cylinder(thickness, r = 6,true );
+            translate([34, 49, 0])  rotate([sideRotation,0,0])cylinder(thickness+skewHeight, r = 6, true );
+        }
+        
+        //translate([0,0,10+thickness-tolerance])cube([120,120,20],true);
     }
 }
 
 //----------------------------------------------------------------------------
 
-module corner( xOffset, yOffset )
+module BezelCutOut( thickness = skPlateThickness, tolerance = 0 )
+{
+    hull()
+    {
+        
+        $fn = 20;
+        translate([-37, 46.5, 0])  rotate([-4,0,0])cylinder(thickness, r = 1 + tolerance, true );
+        translate([-37, -46, 0])  rotate([4,0,0])cylinder(thickness, r = 1+ tolerance, true );
+        translate([37, -46, 0])  rotate([4,0,0])cylinder(thickness, r = 1 + tolerance,true );
+        translate([37, 46.5, 0])  rotate([-4,0,0])cylinder(thickness, r = 1 + tolerance, true );
+    }
+
+}
+
+//----------------------------------------------------------------------------
+
+module TopBezel()
+{
+    difference()
+    {
+        minkowski()
+        {
+            BlankBox( 3.2, .2, 0,  -2 );
+            // put a rounded edge on the box
+            sphere( r = 1, $fn=40 );
+        }
+        
+        translate([0,0,-3]) BezelCutOut( 15 );
+        translate([0,0,-2.5])cube([200,200,5], true );
+        
+        translate([0,0,-.3]) BlankPlate( 1, 0.4 );
+        
+        
+        union()
+        {
+            $fn = 20;
+            translate([-35, 50.3, -1])  rotate([-2,0,0])cylinder(4, d = skScrewDiameter, true );
+            translate([-35, -49.7, -1])  rotate([-2,0,0])cylinder(4, d = skScrewDiameter, true );
+            translate([35, -49.7, -1])  rotate([-2,0,0])cylinder(4, d = skScrewDiameter,true );
+            translate([35, 50.3, -1])  rotate([-2,0,0])cylinder(4, d = skScrewDiameter, true );
+        }
+        
+    }
+}
+
+
+//----------------------------------------------------------------------------
+
+module corner( xOffset, yOffset, extraHeight = 0 )
 {
     $fn = 30;
     translate([35 * xOffset, 50 * yOffset, 0])
@@ -178,10 +242,10 @@ module corner( xOffset, yOffset )
     translate([35 * xOffset, 50 * yOffset, 0])
     hull()
     {
-        cylinder(6, d = 6, true );
+        cylinder(6+extraHeight, d = 7.5, true );
         cylinder(1, d = 8, true );
-        translate([xOffset * 3, 0, 0 ]) cylinder(6, d = 5, true );
-        translate([0, yOffset * 3, 0 ]) cylinder(6, d = 5, true );
+        translate([xOffset * 3, 0, 0 ]) cylinder(6+extraHeight, d = 5, true );
+        translate([0, yOffset * 3, 0 ]) cylinder(6+extraHeight, d = 5, true );
     }
     
 }
@@ -195,13 +259,13 @@ module Box()
         minkowski()
         {
             
-            BlankBox(9);
+            BlankBox(skBoxDepth);
             // put a rounded edge on the box
             sphere( r = 1, $fn=40 );
         }
         
         // cut out the plate
-        translate([0,0,2]) BlankPlate( 13, 0.4 );
+        translate([0,0,2]) BlankPlate( skBoxDepth + 4, 0.4 );
 
         // usb access
         translate([0,55,6])
@@ -223,19 +287,31 @@ module Box()
 
     }
 
+    // all of the screw hole support stuff
     difference()
     {
         // support
         union()
         {
-            corner( -1,  1 );
-            corner( -1, -1 );
-            corner(  1, -1 );
-            corner(  1,  1 );
+            corner( -1,  1, 3 );
+            corner( -1, -1, 0 );
+            corner(  1, -1, 0 );
+            corner(  1,  1, 3 );
+            
+            if ( addBoxSupports )
+            {
+                $fn = 12;
+                skBoxSupportDiameter = 5;
+                translate([skSpaceBetweenSwitches *  1, skSpaceBetweenSwitches *  1.5, 1]) cylinder( skBoxDepth + 4, d = skBoxSupportDiameter );
+                translate([skSpaceBetweenSwitches * -1, skSpaceBetweenSwitches *  1.5, 1]) cylinder( skBoxDepth + 4, d = skBoxSupportDiameter );
+                translate([skSpaceBetweenSwitches * -1, skSpaceBetweenSwitches * -0.5, 1]) cylinder( skBoxDepth + 4, d = skBoxSupportDiameter );
+                translate([skSpaceBetweenSwitches *  1, skSpaceBetweenSwitches * -0.5, 1]) cylinder( skBoxDepth + 4, d = skBoxSupportDiameter );
+            }
+            
         }
         
         // cut the top off at an angle
-        translate([0,0,skPlateAngle])rotate([2,0,0])cube([100,150, 10], true );
+        translate([0,0,skPlateOffset])rotate([2,0,0])cube([100,150, 10], true );
 
         // box screw holes
         union()
@@ -251,10 +327,10 @@ module Box()
         union()
         {
             $fn = 20;
-            translate([-35, 50, -1.1])  cylinder(5, d = skScrewHeadDiameter, true );
+            translate([-35, 50, -1.1])  cylinder(8, d = skScrewHeadDiameter, true );
             translate([-35, -50, -1.1])  cylinder(5, d = skScrewHeadDiameter, true );
             translate([35, -50, -1.1])  cylinder(5, d = skScrewHeadDiameter,true );
-            translate([35, 50, -1.1])  cylinder(5, d = skScrewHeadDiameter, true );
+            translate([35, 50, -1.1])  cylinder(8, d = skScrewHeadDiameter, true );
         }
     }
 }
@@ -269,7 +345,7 @@ module Plate()
         {
             BlankPlate();
             
-            if ( addSupports )
+            if ( addPlateSupports )
             {
                 translate([-9.5,9.5,-0.4])cube([55,1,2],true);
                 translate([0,9.5-19,-0.4])cube([75,1,2],true);
@@ -327,5 +403,18 @@ module Plate()
             translate([skSpaceBetweenSwitches *  2, skSpaceBetweenSwitches *  0.5, 0]) rotate([0,0,-90])TwoUnitCutOut();
 
         }
+    }
+}
+
+//----------------------------------------------------------------------------
+
+//translate([skSpaceBetweenSwitches *  1.5, skSpaceBetweenSwitches *  2, 15]) rotate([2,0,0])KeyCap();
+
+module KeyCap()
+{
+    hull()
+    {
+        cube([18.5,18.5,.1],true);
+        translate([0,0,12.3])cube([13.6,13.6,.1],true);
     }
 }
