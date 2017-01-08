@@ -90,10 +90,11 @@ void SetupHardware( void )
    // 0 = INPUT
    // 1 = output
 
-   DDRB = 0x80; // 7 is output
-   PORTB = 0x71; // pull all the pins not in use high
+   DDRB = 0xF0; // 4-7 are outputs
+   PORTB = 0x0F; // pull all the pins not in use high
 
    DDRC = 0xC0; // 6 & 7 are output
+   PORTC = 0x80; // set pin high to turn off LEDs
 
    DDRD = 0xFF; // all d pins are out
    PORTD = 0xFF; // set all of PORTF high
@@ -101,8 +102,8 @@ void SetupHardware( void )
    DDRE = 0x40; // pin 6 is out
    PORTE = 0x40; // set all of PORTE high to turn off LEDs
 
-   DDRF = 0x73;   // 0,1, 4, 5, and 6 are output
-   PORTF = 0x73;  // set all of PORTF high to turn off LEDs
+   DDRF = 0x03;   // 0 and 1 are output
+   PORTF = 0x03;  // set all of PORTF high to turn off LEDs
 }
 
 //----------------------------------------------------------------------------
@@ -143,34 +144,42 @@ void SlowFade(SRGB const * const source, SRGB * const dest)
 // RGB 2 = PE6, PF0, PF1
 // RGB 3 = PF4, PF5, PF6
 
+// RGB 0 = PC7 PD0 PD1
+// RGB 1 = PD2 PD3 PD4
+// RGB 2 = PD6 PD7 PD5
+// RGB 3 = PE6 PF0 PF1
+
 //----------------------------------------------------------------------------
 // set the first column of LEDs 
 void RGB0(uint8_t const bitMask)
 {
-// red and blue
-   PORTD = (PORTD & ~0x1C) | ( bitMask << 2 );
+   //PORTD = (PORTD & ~0x1C) | ( bitMask << 2 );
+   PORTC = ( PORTC & ~0x80 ) | ( bitMask << 7 );
+   PORTD = ( PORTD & ~0x03 ) | ( bitMask >> 1 );
 }
 
 //----------------------------------------------------------------------------
 // set the second column of LEDs 
 void RGB1(uint8_t const bitMask)
 {
-   PORTD = (PORTD & ~0xE0) | (bitMask << 5);
+   // 
+   PORTD = (PORTD & ~0x1C) | (bitMask << 2);
 }
 
 //----------------------------------------------------------------------------
 // set the third column of LEDs 
 void RGB2(uint8_t const bitMask)
 {
-   PORTE = ( PORTE & ~0x40 ) | ( ( bitMask & 0x01 ) << 6 );
-   PORTF = ( PORTF & ~0x03 ) | ( ( bitMask & 0x06 ) >> 1 );
+   PORTD = ( PORTD & ~ 0xE0 ) | ( bitMask << 7 ) | ( ( bitMask & 0x06) << 4 );
 }
 
 //----------------------------------------------------------------------------
 // set the fourth column of LEDs 
 void RGB3(uint8_t const bitMask)
 {
-   PORTF = ( PORTF & ~0xF0 ) | ( bitMask << 4);
+   //PORTF = ( PORTF & ~0xF0 ) | ( bitMask << 4);
+   PORTE = ( PORTE & ~0x40 ) | ( ( bitMask & 0x1 ) << 6 );
+   PORTF = ( PORTF & ~0x03 ) | bitMask >> 1;
 }
 
 //----------------------------------------------------------------------------
@@ -305,6 +314,7 @@ void UpdateLEDAnimation()
 
 void SetOutputPinsForRow( uint8_t const row )
 {
+#if 0
    // ROW0 = PB7, ROW1 = PC6, ROW2 = PC7, ROW3 = PD0, ROW4 = PD1
    // COL0 = PB0, COL1 = PB4, COL2 = PB5, COL3 = PB6
 
@@ -334,6 +344,33 @@ void SetOutputPinsForRow( uint8_t const row )
    default:
       break;
    }
+#endif
+   // ROW0 = PB4, ROW1 = PB5, ROW2 = PB6, ROW3 = PB7, ROW4 = PC6
+
+   PORTB |= 0xF0;
+   PORTC |= 0x40;
+
+   switch ( row )
+   {
+   case 0:
+      PORTB &= ~0x10;
+      break;
+   case 1:
+      PORTB &= ~0x20;
+      break;
+   case 2:
+      PORTB &= ~0x40;
+      break;
+   case 3:
+      PORTB &= ~0x80;
+      break;
+   case 4:
+      PORTC &= ~0x40;
+      break;
+   default:
+      break;
+   }
+
 }
 
 //----------------------------------------------------------------------------
@@ -385,12 +422,12 @@ void CreateKeyboardReport( )
 
       _delay_us(10);
 
-      data_debounce = (PINB & 0x01) | ((PINB & 0x70) >> 3);
+      data_debounce = (PINB & 0x0F) ;
 
       _delay_us(50);
 
       // OR with the debounce since we looking for low values
-      data = ( (PINB & 0x01) | ( ( PINB & 0x70 ) >> 3 ) ) | data_debounce;
+      data = (PINB & 0x0F) | data_debounce;
 
       for (column = 0; column < 4; ++column)
       {
